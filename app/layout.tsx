@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Delius_Swash_Caps } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Navbar } from "@/components/navbar";
 
 const deliusSwashCaps = Delius_Swash_Caps({
   weight: "400",
@@ -28,6 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>
