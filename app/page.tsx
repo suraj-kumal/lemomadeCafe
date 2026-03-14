@@ -1,10 +1,5 @@
-import { HeroBanner } from "@/components/heroBanner";
+import LandingPage from "@/components/landingPage";
+
 export default function Home() {
-  return (
-    <div className="m-0 p-0">
-      <main className="">
-        <HeroBanner />
-      </main>
-    </div>
-  );
+  return <LandingPage />;
 }
