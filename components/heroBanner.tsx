@@ -1,4 +1,5 @@
 import PlantBasedButton from "./ui/leaf";
+import Link from "next/link";
 export const HeroBanner = () => {
   return (
     <section className="w-full h-125 lg:h-screen flex items-center justify-center px-4">
@@ -10,7 +11,9 @@ export const HeroBanner = () => {
           Your go-to spot for lemon tea, fresh lemonades & strong coffee
         </p>
         <div className="flex gap-4 justify-center mt-32">
-          <PlantBasedButton />
+          <Link href="/menu">
+            <PlantBasedButton />
+          </Link>
         </div>
       </div>
     </section>
