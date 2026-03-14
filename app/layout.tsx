@@ -53,7 +53,7 @@ export const metadata: Metadata = {
 
   // ── Google Site Verification ─────────────────────────────
   verification: {
-    google: "REPLACE_WITH_YOUR_GOOGLE_VERIFICATION_CODE", // 🔁 get this from Google Search Console
+    google: "6H3PdKwprczLMvlOh6aSqdJ8MOs9EOR_cD-kjNWL0jI", // 🔁 get this from Google Search Console
   },
 
   // ── Open Graph (Facebook, WhatsApp, LinkedIn) ────────────
