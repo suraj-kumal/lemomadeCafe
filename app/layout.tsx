@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   publisher: "Lemonade Cafe",
 
   // ── Canonical & Robots ──────────────────────────────────
-  metadataBase: new URL("https://lemonadecafe.com.np"), // 🔁 replace with your actual domain
+  metadataBase: new URL("https://lemonadecafe.vercel.app"), // 🔁 replace with your actual domain
   alternates: {
     canonical: "/",
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://lemonadecafe.com.np", // 🔁 replace with your actual domain
+    url: "https://lemonadecafe.vercel.app", // 🔁 replace with your actual domain
     siteName: "Lemonade Cafe",
     title: "Lemonade Cafe — Best Lemon Tea in Kathmandu",
     description:
@@ -93,7 +93,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${deliusSwashCaps.variable} antialiased flex flex-col min-h-screen`}>
+      <body
+        className={`${deliusSwashCaps.variable} antialiased flex flex-col min-h-screen`}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
