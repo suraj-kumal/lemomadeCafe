@@ -75,9 +75,22 @@ export const Footer = () => {
         </div>
 
         {/* Divider */}
+        {/* Divider */}
         <div className="mt-8 border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
           <p>© {currentYear} Lemonade Cafe. All rights reserved.</p>
-          <p>Made with ☕ &amp; 🍋 in Kathmandu</p>
+          <p>Made with ☕ & 🍋 in Kathmandu</p>
+
+          <p>
+            Like this website?{" "}
+            <a
+              href="https://surajkumal.com.np"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-2 hover:text-foreground transition-colors"
+            >
+              Let’s build yours
+            </a>
+          </p>
         </div>
       </div>
     </footer>
