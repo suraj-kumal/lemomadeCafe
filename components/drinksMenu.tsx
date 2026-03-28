@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import DrinksMenuData, { DrinksItem } from "@/data/drinksmenu";
 import BeerMenuData, { BeerItem } from "@/data/beerdata";
 
-// ── Combine both menus
+
 type CombinedItem = DrinksItem | BeerItem;
 
-// ── Group by drink name
+
 function groupByName(items: CombinedItem[]) {
   const grouped: Record<string, CombinedItem[]> = {};
 
@@ -21,7 +21,7 @@ function groupByName(items: CombinedItem[]) {
   return grouped;
 }
 
-// ── Row with multiple prices (quarter/half OR small/normal)
+
 function DrinkRow({
   name,
   items,
@@ -137,10 +137,10 @@ export default function DrinksPage() {
         </motion.p>
       </div>
 
-      {/* Beer */}
+     
       <DrinksCard title="🍺 Beer" items={beer} />
 
-      {/* Alcohol */}
+      
       <DrinksCard title="🍾Hard Drinks" items={alcohol} />
     </main>
   );
