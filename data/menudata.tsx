@@ -481,6 +481,13 @@ const MenuData = (): MenuItem[] => {
       category: "Chowchow",
       available: true,
     },
+     {
+      id: 61,
+      name: "Milkshake (flavors available)",
+      price: 90,
+      category: "Cold Drinks",
+      available: true,
+    },
   ];
 };
 
