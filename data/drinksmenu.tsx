@@ -84,7 +84,7 @@ const DrinksMenuData = (): DrinksItem[] => {
     {
       id: 9,
       name: "Old Durbar",
-      price: 750,
+      price: 800,
       category: "Hard Drinks",
       unit: "quarter",
       available: true,
@@ -92,7 +92,7 @@ const DrinksMenuData = (): DrinksItem[] => {
     {
       id: 10,
       name: "Old Durbar",
-      price: 1500,
+      price: 1600,
       category: "Hard Drinks",
       unit: "half",
       available: true,
