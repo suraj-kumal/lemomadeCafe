@@ -118,70 +118,70 @@ const MenuData = (): MenuItem[] => {
     {
       id: 12,
       name: "Buff Momo Steam",
-      price: 150, //130
+      price: 130,
       category: "Momo",
       available: true,
     },
     {
       id: 13,
       name: "Buff Momo Jhol",
-      price: 190, //170
+      price: 170,
       category: "Momo",
       available: true,
     },
     {
       id: 14,
       name: "Buff Momo Fried",
-      price: 190, //170
+      price: 170,
       category: "Momo",
       available: true,
     },
     {
       id: 15,
       name: "Buff Chilly Momo Steam",
-      price: 200, //180
+      price: 180,
       category: "Momo",
       available: true,
     },
     {
       id: 16,
       name: "Buff Chilly Momo Fried",
-      price: 200, //180
+      price: 180,
       category: "Momo",
       available: true,
     },
     {
       id: 17,
       name: "Chicken Momo Steam",
-      price: 150, //140
+      price: 140,
       category: "Momo",
       available: true,
     },
     {
       id: 18,
       name: "Chicken Momo Jhol",
-      price: 190, //180
+      price: 180,
       category: "Momo",
       available: true,
     },
     {
       id: 19,
       name: "Chicken Momo Fried",
-      price: 190, //180
+      price: 180,
       category: "Momo",
       available: true,
     },
     {
       id: 20,
       name: "Chicken Chilly Momo Steam",
-      price: 200, //190
+      price: 190,
       category: "Momo",
       available: true,
     },
     {
       id: 21,
       name: "Chicken Chilly Momo Fried",
-      price: 200, //190
+      price: 190,
       category: "Momo",
       available: true,
     },
@@ -190,21 +190,21 @@ const MenuData = (): MenuItem[] => {
     {
       id: 22,
       name: "Veg Chowmein",
-      price: 130, //120
+      price: 120,
       category: "Chowmein",
       available: true,
     },
     {
       id: 23,
       name: "Buff Chowmein",
-      price: 150, //130
+      price: 130,
       category: "Chowmein",
       available: true,
     },
     {
       id: 24,
       name: "Chicken Chowmein",
-      price: 150, //140
+      price: 140,
       category: "Chowmein",
       available: true,
     },
@@ -218,7 +218,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 26,
       name: "Mix Chowmein",
-      price: 250, //200
+      price: 200,
       category: "Chowmein",
       available: true,
     },
@@ -227,35 +227,35 @@ const MenuData = (): MenuItem[] => {
     {
       id: 27,
       name: "Veg Fried Rice",
-      price: 130, //120
+      price: 120, //120
       category: "Fried Rice",
       available: true,
     },
     {
       id: 28,
       name: "Buff Fried Rice",
-      price: 160, //130
+      price: 130, //130
       category: "Fried Rice",
       available: true,
     },
     {
       id: 29,
       name: "Chicken Fried Rice",
-      price: 160, //140
+      price: 140, //140
       category: "Fried Rice",
       available: true,
     },
     {
       id: 30,
       name: "Egg Fried Rice",
-      price: 160, //150
+      price: 150, //150
       category: "Fried Rice",
       available: true,
     },
     {
       id: 31,
       name: "Mixed Fried Rice",
-      price: 250, //200
+      price: 200, //200
       category: "Fried Rice",
       available: true,
     },
@@ -340,21 +340,21 @@ const MenuData = (): MenuItem[] => {
     {
       id: 42,
       name: "Veg Thukpa",
-      price: 130, //120
+      price: 120, //120
       category: "Thukpa",
       available: true,
     },
     {
       id: 43,
       name: "Buff Thukpa",
-      price: 170, //150
+      price: 150, //150
       category: "Thukpa",
       available: true,
     },
     {
       id: 44,
       name: "Chicken Thukpa",
-      price: 170, //160
+      price: 160, //160
       category: "Thukpa",
       available: true,
     },
@@ -363,7 +363,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 45,
       name: "Roti",
-      price: 25, //20
+      price: 20, //20
       category: "Roti & Sides",
       unit: "per piece",
       available: true,
@@ -371,21 +371,21 @@ const MenuData = (): MenuItem[] => {
     {
       id: 46,
       name: "Jhol Tarkari",
-      price: 40, //30
+      price: 30, //30
       category: "Roti & Sides",
       available: true,
     },
     {
       id: 47,
       name: "Alu",
-      price: 50, //40
+      price: 40, //40
       category: "Roti & Sides",
       available: true,
     },
     {
       id: 48,
       name: "Chana",
-      price: 40, //30
+      price: 30, //30
       category: "Roti & Sides",
       available: true,
     },
