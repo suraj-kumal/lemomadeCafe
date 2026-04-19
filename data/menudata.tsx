@@ -74,7 +74,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 6,
       name: "Cold Lemonade",
-      price: 30,
+      price: 40,
       category: "Cold Drinks",
       available: true,
     },
@@ -327,6 +327,7 @@ const MenuData = (): MenuItem[] => {
       price: 35,
       category: "Sausages",
       available: true,
+      unit: "per piece",
     },
     {
       id: 41,
@@ -334,6 +335,7 @@ const MenuData = (): MenuItem[] => {
       price: 40,
       category: "Sausages",
       available: true,
+      unit: "per piece",
     },
 
     // ─── Thukpa ──────────────────────────────────────────────
@@ -485,6 +487,13 @@ const MenuData = (): MenuItem[] => {
       id: 61,
       name: "Milkshake (flavors available)",
       price: 90,
+      category: "Cold Drinks",
+      available: true,
+    },
+    {
+      id: 62,
+      name: "Xtreme",
+      price: 140,
       category: "Cold Drinks",
       available: true,
     },

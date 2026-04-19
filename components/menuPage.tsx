@@ -36,8 +36,20 @@ const CATEGORY_ICONS: Record<MenuCategory, string> = {
 };
 
 // ── Group available items by category
+// function groupByCategory(items: MenuItem[]): Record<string, MenuItem[]> {
+//   return items
+//     .filter((item) => item.available)
+//     .reduce(
+//       (acc, item) => {
+//         if (!acc[item.category]) acc[item.category] = [];
+//         acc[item.category].push(item);
+//         return acc;
+//       },
+//       {} as Record<string, MenuItem[]>,
+//     );
+// }
 function groupByCategory(items: MenuItem[]): Record<string, MenuItem[]> {
-  return items
+  const grouped = items
     .filter((item) => item.available)
     .reduce(
       (acc, item) => {
@@ -47,8 +59,14 @@ function groupByCategory(items: MenuItem[]): Record<string, MenuItem[]> {
       },
       {} as Record<string, MenuItem[]>,
     );
-}
 
+  // 🔽 Sort each category by price (ascending)
+  Object.keys(grouped).forEach((category) => {
+    grouped[category].sort((a, b) => a.price - b.price);
+  });
+
+  return grouped;
+}
 // ── Single menu item row
 function MenuItemRow({ item, isLast }: { item: MenuItem; isLast: boolean }) {
   return (
