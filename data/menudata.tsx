@@ -118,42 +118,42 @@ const MenuData = (): MenuItem[] => {
     {
       id: 12,
       name: "Buff Momo Steam",
-      price: 130,
+      price: 150,
       category: "Momo",
       available: true,
     },
     {
       id: 13,
       name: "Buff Momo Jhol",
-      price: 170,
+      price: 180,
       category: "Momo",
       available: true,
     },
     {
       id: 14,
       name: "Buff Momo Fried",
-      price: 170,
+      price: 180,
       category: "Momo",
       available: true,
     },
     {
       id: 15,
       name: "Buff Chilly Momo Steam",
-      price: 180,
+      price: 200,
       category: "Momo",
       available: true,
     },
     {
       id: 16,
       name: "Buff Chilly Momo Fried",
-      price: 180,
+      price: 200,
       category: "Momo",
       available: true,
     },
     {
       id: 17,
       name: "Chicken Momo Steam",
-      price: 140,
+      price: 150,
       category: "Momo",
       available: true,
     },
@@ -174,14 +174,14 @@ const MenuData = (): MenuItem[] => {
     {
       id: 20,
       name: "Chicken Chilly Momo Steam",
-      price: 190,
+      price: 200,
       category: "Momo",
       available: true,
     },
     {
       id: 21,
       name: "Chicken Chilly Momo Fried",
-      price: 190,
+      price: 200,
       category: "Momo",
       available: true,
     },
@@ -197,21 +197,21 @@ const MenuData = (): MenuItem[] => {
     {
       id: 23,
       name: "Buff Chowmein",
-      price: 130,
+      price: 150,
       category: "Chowmein",
       available: true,
     },
     {
       id: 24,
       name: "Chicken Chowmein",
-      price: 140,
+      price: 150,
       category: "Chowmein",
       available: true,
     },
     {
       id: 25,
       name: "Egg Chowmein",
-      price: 150,
+      price: 160,
       category: "Chowmein",
       available: true,
     },
@@ -234,21 +234,21 @@ const MenuData = (): MenuItem[] => {
     {
       id: 28,
       name: "Buff Fried Rice",
-      price: 130, //130
+      price: 150, //130
       category: "Fried Rice",
       available: true,
     },
     {
       id: 29,
       name: "Chicken Fried Rice",
-      price: 140, //140
+      price: 150, //140
       category: "Fried Rice",
       available: true,
     },
     {
       id: 30,
       name: "Egg Fried Rice",
-      price: 150, //150
+      price: 160, //150
       category: "Fried Rice",
       available: true,
     },
@@ -365,7 +365,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 45,
       name: "Roti",
-      price: 20, //20
+      price: 25, //20
       category: "Roti & Sides",
       unit: "per piece",
       available: true,
@@ -396,7 +396,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 49,
       name: "Boiled Egg",
-      price: 30,
+      price: 35,
       category: "Egg",
       unit: "per piece",
       available: true,
@@ -404,7 +404,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 50,
       name: "Omelette",
-      price: 30,
+      price: 40,
       category: "Egg",
       unit: "per piece",
       available: true,
@@ -412,7 +412,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 51,
       name: "Poached Egg",
-      price: 30,
+      price: 40,
       category: "Egg",
       unit: "per piece",
       available: true,
@@ -443,7 +443,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 55,
       name: "Egg Roll",
-      price: 50,
+      price: 60,
       category: "Roti & Sides",
       available: true,
     },
@@ -465,7 +465,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 58,
       name: "Red Bull Large",
-      price: 140,
+      price: 150,
       category: "Cold Drinks",
       available: true,
     },
@@ -493,8 +493,16 @@ const MenuData = (): MenuItem[] => {
     {
       id: 62,
       name: "Xtreme",
-      price: 140,
+      price: 150,
       category: "Cold Drinks",
+      available: true,
+    },
+    {
+      id: 63,
+      name: "Masala Omelette",
+      price: 50,
+      category: "Egg",
+      unit: "per piece",
       available: true,
     },
   ];

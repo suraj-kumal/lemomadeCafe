@@ -44,7 +44,7 @@ const BeerMenuData = (): BeerItem[] => {
     {
       id: 4,
       name: "Tuborg",
-      price: 500,
+      price: 550,
       category: "Beer",
       unit: "normal",
       available: true,
