@@ -457,7 +457,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 57,
       name: "Masala Omelette",
-      price: 40,
+      price: 50,
       category: "Egg",
       available: true,
       unit: "per piece",
@@ -496,15 +496,7 @@ const MenuData = (): MenuItem[] => {
       price: 150,
       category: "Cold Drinks",
       available: true,
-    },
-    {
-      id: 63,
-      name: "Masala Omelette",
-      price: 50,
-      category: "Egg",
-      unit: "per piece",
-      available: true,
-    },
+    }
   ];
 };
 
