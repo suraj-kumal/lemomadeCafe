@@ -51,14 +51,14 @@ const MenuData = (): MenuItem[] => {
     {
       id: 3,
       name: "Lemon Tea",
-      price: 30,
+      price: 35,
       category: "Hot Beverages",
       available: true,
     },
     {
       id: 4,
       name: "Hot Lemon",
-      price: 30,
+      price: 35,
       category: "Hot Beverages",
       available: true,
     },
@@ -74,7 +74,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 6,
       name: "Cold Lemonade",
-      price: 40,
+      price: 45,
       category: "Cold Drinks",
       available: true,
     },
