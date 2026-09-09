@@ -74,7 +74,7 @@ const MenuData = (): MenuItem[] => {
     {
       id: 6,
       name: "Cold Lemonade",
-      price: 45,
+      price: 50,
       category: "Cold Drinks",
       available: true,
     },
