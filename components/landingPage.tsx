@@ -488,7 +488,7 @@ function CategoriesSection({ counts }: { counts: Record<string, number> }) {
           {ORDERED_CATEGORIES.map((cat, i) => (
             <motion.a
               key={cat}
-              href="/menu"
+              href={"/menu#" + cat}
               custom={i}
               initial="hidden"
               whileInView="visible"

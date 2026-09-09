@@ -122,38 +122,41 @@ function CategoryCard({
   const Icon = CATEGORY_ICONS[category];
 
   return (
-    <motion.div
-      className="bg-card text-card-foreground border border-border rounded-(--radius) px-6 py-5 break-inside-avoid mb-5"
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{ delay: index * 0.05 }}
-    >
-      {/* Category header */}
-      <div className="flex items-center gap-2 mb-3 pb-3 border-b-2 border-border">
-        <Icon className="h-5 w-5 text-muted-foreground" strokeWidth={2} />
+    <>
+      <div id={category}></div>
+      <motion.div
+        className="bg-card text-card-foreground border border-border rounded-(--radius) px-6 py-5 break-inside-avoid mb-5"
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ delay: index * 0.05 }}
+      >
+        {/* Category header */}
+        <div className="flex items-center gap-2 mb-3 pb-3 border-b-2 border-border">
+          <Icon className="h-5 w-5 text-muted-foreground" strokeWidth={2} />
 
-        <h2 className="text-[1.05rem] font-bold text-foreground m-0">
-          {category}
-        </h2>
+          <h2 className="text-[1.05rem] font-bold text-foreground m-0">
+            {category}
+          </h2>
 
-        <span className="ml-auto text-xs text-muted-foreground">
-          {items.length} items
-        </span>
-      </div>
+          <span className="ml-auto text-xs text-muted-foreground">
+            {items.length} items
+          </span>
+        </div>
 
-      {/* Items */}
-      <div>
-        {items.map((item, i) => (
-          <MenuItemRow
-            key={item.id}
-            item={item}
-            isLast={i === items.length - 1}
-          />
-        ))}
-      </div>
-    </motion.div>
+        {/* Items */}
+        <div>
+          {items.map((item, i) => (
+            <MenuItemRow
+              key={item.id}
+              item={item}
+              isLast={i === items.length - 1}
+            />
+          ))}
+        </div>
+      </motion.div>
+    </>
   );
 }
 
