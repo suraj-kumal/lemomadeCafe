@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import { Beer, Martini } from "lucide-react";
+
 import DrinksMenuData, { DrinksItem } from "@/data/drinksmenu";
 import BeerMenuData, { BeerItem } from "@/data/beerdata";
 
-
 type CombinedItem = DrinksItem | BeerItem;
-
 
 function groupByName(items: CombinedItem[]) {
   const grouped: Record<string, CombinedItem[]> = {};
@@ -21,7 +22,23 @@ function groupByName(items: CombinedItem[]) {
   return grouped;
 }
 
+// ── Animation
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut" as const,
+    },
+  },
+};
 
+// ── Drink Row
 function DrinkRow({
   name,
   items,
@@ -57,24 +74,14 @@ function DrinkRow({
   );
 }
 
-// ── Animation
-import type { Variants } from "framer-motion";
-
-const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
-  },
-};
-
 // ── Card Component
 function DrinksCard({
   title,
+  icon: Icon,
   items,
 }: {
   title: string;
+  icon: React.ElementType;
   items: CombinedItem[];
 }) {
   const grouped = groupByName(items);
@@ -90,7 +97,13 @@ function DrinksCard({
     >
       {/* Header */}
       <div className="flex items-center gap-2 mb-3 pb-3 border-b-2 border-border">
+        {/* Icon */}
+        <Icon size={20} strokeWidth={2} />
+
+        {/* Title */}
         <h2 className="text-[1.05rem] font-bold">{title}</h2>
+
+        {/* Item Count */}
         <span className="ml-auto text-xs text-muted-foreground">
           {names.length} items
         </span>
@@ -119,29 +132,43 @@ export default function DrinksPage() {
       {/* Header */}
       <div className="text-center mb-10">
         <motion.h1
-          className="text-3xl font-extrabold"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          className="text-3xl font-extrabold flex gap-2 justify-center"
+          initial={{
+            opacity: 0,
+            y: -20,
+          }}
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            duration: 0.5,
+          }}
         >
-          Looking for Drinks? 🍻
+          Looking for Drinks? <Beer size={32} />
         </motion.h1>
 
         <motion.p
           className="text-sm text-muted-foreground mt-2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            delay: 0.4,
+          }}
         >
           We’ve got something for every mood 😎
         </motion.p>
       </div>
 
-     
-      <DrinksCard title="🍺 Beer" items={beer} />
+      {/* Beer */}
+      <DrinksCard title="Beer" icon={Beer} items={beer} />
 
-      
-      <DrinksCard title="🍾Hard Drinks" items={alcohol} />
+      {/* Hard Drinks */}
+      <DrinksCard title="Hard Drinks" icon={Martini} items={alcohol} />
     </main>
   );
 }

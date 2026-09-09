@@ -1,194 +1,389 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import MenuData, { MenuCategory, MenuItem } from "@/data/menudata";
 
-// ── Category icons (shared with menuPage)
-const CATEGORY_ICONS: Record<MenuCategory, string> = {
-  "Hot Beverages": "☕",
-  "Cold Drinks": "🥤",
-  Momo: "🥟",
-  Chowmein: "🍜",
-  "Fried Rice": "🍚",
-  Chicken: "🍗",
-  Buff: "🥩",
-  Sausages: "🌭",
-  Thukpa: "🍲",
-  "Roti & Sides": "🫓",
-  Egg: "🥚",
-  Chowchow: "🍜",
-};
+// ─────────────────────────────────────────────
+// Shared placeholder image slot for content
+// we don't have real photography for yet.
+// Sharp corners throughout — grid cells, not cards.
+// ─────────────────────────────────────────────
+function ImageSlot({
+  label,
+  className = "",
+}: {
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`relative flex items-center justify-center overflow-hidden ${className}`}
+      style={{ background: "var(--muted)" }}
+    >
+      <span
+        className="text-[10px] tracking-wide text-center px-2"
+        style={{ color: "var(--muted-foreground)", opacity: 0.55 }}
+      >
+        {label}
+      </span>
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(135deg, var(--foreground) 0, var(--foreground) 1px, transparent 1px, transparent 14px)",
+        }}
+      />
+    </div>
+  );
+}
 
-// ── Curated popular / featured items (by id)
-const FEATURED_IDS = [1, 6, 12, 17, 22, 32];
-
-// ── Animation variants
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 32 },
+// ─────────────────────────────────────────────
+// Animation — one orchestrated hero entrance,
+// everything else is a single restrained
+// fade-slide the first time it enters view.
+// ─────────────────────────────────────────────
+const reveal: Variants = {
+  hidden: { opacity: 0, y: 24 },
   visible: (i: number = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const, delay: i * 0.08 },
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 },
   }),
 };
 
-const fadeIn = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.6 } },
+const clipReveal: Variants = {
+  hidden: { clipPath: "inset(0 0 100% 0)" },
+  visible: {
+    clipPath: "inset(0 0 0% 0)",
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 },
+  },
 };
 
+const row: Variants = {
+  hidden: { opacity: 0, x: -12 },
+  visible: (i: number) => ({
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: i * 0.04 },
+  }),
+};
+
+function pad(n: number) {
+  return n.toString().padStart(2, "0");
+}
+
 // ─────────────────────────────────────────────
-// Hero Section
+// Masthead
+// ─────────────────────────────────────────────
+function Masthead() {
+  return (
+    <header
+      className="w-full border-b"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-5 flex items-baseline justify-between">
+        <span
+          className="text-xl md:text-2xl leading-none"
+          style={{ color: "var(--foreground)" }}
+        >
+          Lemonade Cafe
+        </span>
+        <span
+          className="text-sm md:text-base leading-none"
+          style={{ color: "var(--muted-foreground)" }}
+        >
+          Swoyambhu, Kathmandu
+        </span>
+      </div>
+    </header>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Hero — asymmetric split, real photo, one
+// choreographed entrance on load.
 // ─────────────────────────────────────────────
 function HeroSection() {
   return (
-    <section className="relative w-full min-h-[92vh] flex flex-col items-center justify-center overflow-hidden px-4">
-      {/* Decorative blobs */}
-      <div
-        aria-hidden
-        className="absolute -top-20 -left-20 w-80 h-80 rounded-full blur-3xl opacity-30"
-        style={{ background: "var(--accent)" }}
-      />
-      <div
-        aria-hidden
-        className="absolute -bottom-24 -right-16 w-96 h-96 rounded-full blur-3xl opacity-20"
-        style={{ background: "var(--primary)" }}
-      />
-
-      <motion.div
-        className="relative z-10 max-w-4xl mx-auto text-center space-y-6"
-        initial="hidden"
-        animate="visible"
-        variants={fadeIn}
-      >
-        {/* Badge */}
-        <motion.span
-          variants={fadeUp}
-          custom={0}
-          initial="hidden"
-          animate="visible"
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-card text-sm font-medium text-muted-foreground shadow-sm"
-        >
-          🍋 Swoyambhu, Kathmandu
-        </motion.span>
-
-        {/* Headline */}
+    <section
+      className="w-full grid grid-cols-1 md:grid-cols-12 border-b"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className="md:col-span-7 px-6 md:px-10 py-16 md:py-24 flex flex-col justify-center">
         <motion.h1
-          variants={fadeUp}
-          custom={1}
+          className="text-[13vw] leading-[0.95] md:text-[5.5vw] md:leading-[0.95]"
+          style={{ color: "var(--foreground)" }}
           initial="hidden"
           animate="visible"
-          className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight text-foreground"
         >
-          Fresh. <span style={{ color: "var(--primary)" }}>Homemade.</span>
-          <br />
-          Full of Flavor.
+          <motion.span className="block" variants={reveal} custom={0}>
+            Fresh.
+          </motion.span>
+          <motion.span
+            className="block"
+            variants={reveal}
+            custom={1}
+            style={{ color: "var(--secondary)" }}
+          >
+            Homemade.
+          </motion.span>
+          <motion.span className="block" variants={reveal} custom={2}>
+            Full of flavor.
+          </motion.span>
         </motion.h1>
 
-        {/* Subheading */}
         <motion.p
-          variants={fadeUp}
-          custom={2}
-          initial="hidden"
-          animate="visible"
-          className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto leading-relaxed"
-        >
-          Your go-to spot for lemon tea, fresh lemonades, strong coffee &amp;
-          hearty Nepali bites — all made with love.
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <motion.div
-          variants={fadeUp}
+          className="mt-8 max-w-md text-base md:text-lg"
+          style={{ color: "var(--muted-foreground)" }}
+          variants={reveal}
           custom={3}
           initial="hidden"
           animate="visible"
-          className="flex flex-wrap gap-4 justify-center pt-4"
+        >
+          Lemon tea, fresh lemonades, strong coffee &amp; hearty Nepali bites —
+          made the way we&apos;d make it for our own family.
+        </motion.p>
+
+        <motion.div
+          className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4"
+          variants={reveal}
+          custom={4}
+          initial="hidden"
+          animate="visible"
         >
           <Link href="/menu">
             <button
-              className="px-7 py-3 rounded-full font-semibold text-sm transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0"
+              className="px-6 py-3 text-sm md:text-base transition-opacity hover:opacity-85"
               style={{
                 background: "var(--primary)",
                 color: "var(--primary-foreground)",
               }}
             >
-              View Full Menu →
+              View full menu
             </button>
           </Link>
-          <a href="#categories">
-            <button className="px-7 py-3 rounded-full font-semibold text-sm border border-border bg-card text-foreground transition-all duration-200 hover:bg-muted hover:-translate-y-0.5 active:translate-y-0">
-              Explore Categories
-            </button>
+          <a
+            href="#categories"
+            className="text-sm md:text-base underline underline-offset-4"
+            style={{
+              color: "var(--foreground)",
+              textDecorationColor: "var(--secondary)",
+            }}
+          >
+            Browse categories
           </a>
         </motion.div>
-      </motion.div>
+      </div>
 
-      {/* Floating emoji decorations */}
-      <motion.span
-        className="absolute top-1/4 left-8 text-4xl select-none hidden lg:block"
-        animate={{ y: [0, -12, 0] }}
-        transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
-        aria-hidden
+      {/* Real photo — portrait 5152×7724, cropped to fill the column */}
+      <motion.div
+        className="relative md:col-span-5 min-h-[22rem] md:min-h-0 border-t md:border-t-0 md:border-l"
+        style={{ borderColor: "var(--border)" }}
+        variants={clipReveal}
+        initial="hidden"
+        animate="visible"
       >
-        🍋
-      </motion.span>
-      <motion.span
-        className="absolute top-1/3 right-8 text-4xl select-none hidden lg:block"
-        animate={{ y: [0, 10, 0] }}
-        transition={{
-          repeat: Infinity,
-          duration: 4,
-          ease: "easeInOut",
-          delay: 1,
-        }}
-        aria-hidden
-      >
-        ☕
-      </motion.span>
-      <motion.span
-        className="absolute bottom-1/4 left-16 text-3xl select-none hidden lg:block"
-        animate={{ y: [0, -8, 0] }}
-        transition={{
-          repeat: Infinity,
-          duration: 3,
-          ease: "easeInOut",
-          delay: 0.5,
-        }}
-        aria-hidden
-      >
-        🍜
-      </motion.span>
+        <Image
+          src="/lemonade.jpg"
+          alt="Lemonade Cafe"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 42vw"
+          className="object-cover"
+        />
+      </motion.div>
     </section>
   );
 }
 
 // ─────────────────────────────────────────────
-// Featured Items Section
+// Highlights — plain hairline-divided row,
+// no icons, no pills.
 // ─────────────────────────────────────────────
+const HIGHLIGHTS = [
+  "Fresh ingredients",
+  "Homemade recipes",
+  "Quick service",
+  "Relax environment",
+];
+
+// function HighlightsBar() {
+//   return (
+//     <section
+//       className="w-full border-b"
+//       style={{ borderColor: "var(--border)" }}
+//     >
+//       <div className="max-w-6xl mx-auto px-6 md:px-10 py-6 flex flex-wrap gap-x-10 gap-y-3">
+//         {HIGHLIGHTS.map((h, i) => (
+//           <motion.span
+//             key={h}
+//             custom={i}
+//             initial="hidden"
+//             whileInView="visible"
+//             viewport={{ once: true }}
+//             variants={reveal}
+//             className="text-sm md:text-base"
+//             style={{ color: "var(--foreground)" }}
+//           >
+//             {h}
+//           </motion.span>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
+function HighlightsBar() {
+  return (
+    <section
+      className="w-full border-b"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-10 py-5 md:py-6">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-3 sm:flex sm:flex-wrap sm:gap-x-10 sm:gap-y-3">
+          {HIGHLIGHTS.map((h, i) => (
+            <motion.span
+              key={h}
+              custom={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={reveal}
+              className="text-sm md:text-base leading-snug"
+              style={{ color: "var(--foreground)" }}
+            >
+              {h}
+            </motion.span>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Featured items — grid of cells divided by
+// hairlines, no rounded cards, no emoji.
+// ─────────────────────────────────────────────
+// function FeaturedSection({ items }: { items: MenuItem[] }) {
+//   return (
+//     <section
+//       className="w-full border-b"
+//       style={{ borderColor: "var(--border)" }}
+//     >
+//       <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 md:py-20">
+//         <div className="flex items-baseline justify-between mb-10 md:mb-14">
+//           <h2
+//             className="text-3xl md:text-4xl"
+//             style={{ color: "var(--foreground)" }}
+//           >
+//             Our favourites
+//           </h2>
+//           <Link
+//             href="/menu"
+//             className="text-sm md:text-base underline underline-offset-4 hidden sm:block"
+//             style={{
+//               color: "var(--muted-foreground)",
+//               textDecorationColor: "var(--secondary)",
+//             }}
+//           >
+//             See all items
+//           </Link>
+//         </div>
+
+//         <div
+//           className="grid grid-cols-2 md:grid-cols-3 border-t border-l"
+//           style={{ borderColor: "var(--border)" }}
+//         >
+//           {items.map((item, i) => (
+//             <motion.div
+//               key={item.id}
+//               custom={i}
+//               initial="hidden"
+//               whileInView="visible"
+//               viewport={{ once: true, margin: "-40px" }}
+//               variants={reveal}
+//               className="border-b border-r flex flex-col"
+//               style={{ borderColor: "var(--border)" }}
+//             >
+//               <ImageSlot label={item.name} className="aspect-square w-full" />
+//               <div className="p-4 md:p-5 flex items-baseline justify-between gap-2">
+//                 <div>
+//                   <p
+//                     className="text-base md:text-lg leading-tight"
+//                     style={{ color: "var(--foreground)" }}
+//                   >
+//                     {item.name}
+//                   </p>
+//                   <p
+//                     className="text-xs md:text-sm mt-0.5"
+//                     style={{ color: "var(--muted-foreground)" }}
+//                   >
+//                     {item.category}
+//                   </p>
+//                 </div>
+//                 <span
+//                   className="shrink-0 text-sm md:text-base tabular-nums"
+//                   style={{ color: "var(--secondary)" }}
+//                 >
+//                   Rs. {item.price}
+//                   {item.unit && (
+//                     <span className="opacity-70"> /{item.unit}</span>
+//                   )}
+//                 </span>
+//               </div>
+//             </motion.div>
+//           ))}
+//         </div>
+
+//         <Link
+//           href="/menu"
+//           className="mt-8 inline-block text-sm md:text-base underline underline-offset-4 sm:hidden"
+//           style={{
+//             color: "var(--muted-foreground)",
+//             textDecorationColor: "var(--secondary)",
+//           }}
+//         >
+//           See all items
+//         </Link>
+//       </div>
+//     </section>
+//   );
+// }
+//
 function FeaturedSection({ items }: { items: MenuItem[] }) {
   return (
-    <section className="w-full py-16 px-4">
-      <div className="max-w-5xl mx-auto">
-        {/* Section title */}
-        <motion.div
-          className="text-center mb-10"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={fadeUp}
-        >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
-            ⭐ Our Favourites
+    <section
+      className="w-full border-b"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 md:py-20">
+        <div className="flex items-baseline justify-between mb-10 md:mb-14">
+          <h2
+            className="text-3xl md:text-4xl"
+            style={{ color: "var(--foreground)" }}
+          >
+            Our favourites
           </h2>
-          <p className="mt-2 text-muted-foreground text-sm md:text-base max-w-md mx-auto">
-            A handpicked selection of dishes &amp; drinks our guests love most.
-          </p>
-        </motion.div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 gap-4">
+          <Link
+            href="/menu"
+            className="text-sm md:text-base underline underline-offset-4 hidden sm:block"
+            style={{
+              color: "var(--muted-foreground)",
+              textDecorationColor: "var(--secondary)",
+            }}
+          >
+            See all items
+          </Link>
+        </div>
+
+        <div
+          className="grid grid-cols-2 md:grid-cols-3 border-t border-l"
+          style={{ borderColor: "var(--border)" }}
+        >
           {items.map((item, i) => (
             <motion.div
               key={item.id}
@@ -196,63 +391,70 @@ function FeaturedSection({ items }: { items: MenuItem[] }) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              variants={fadeUp}
-              whileHover={{ y: -4 }}
-              className="relative rounded-2xl border border-border bg-card shadow-sm overflow-hidden flex flex-col items-center justify-between p-5 gap-3 transition-shadow hover:shadow-md cursor-default"
+              variants={reveal}
+              className="border-b border-r flex flex-col"
+              style={{ borderColor: "var(--border)" }}
             >
-              {/* Icon */}
-              <span className="text-4xl">{CATEGORY_ICONS[item.category]}</span>
-
-              {/* Name + category */}
-              <div className="text-center">
-                <p className="font-semibold text-foreground text-sm md:text-base leading-snug">
-                  {item.name}
-                </p>
-                <p className="text-xs text-muted-foreground mt-0.5">
-                  {item.category}
-                </p>
+              {/* Real image */}
+              <div className="relative aspect-square w-full">
+                <Image
+                  src={`/images/${item.name}.jpg`}
+                  alt={item.name}
+                  fill
+                  className="object-cover"
+                />
               </div>
 
-              {/* Price badge */}
-              <span
-                className="px-3 py-1 rounded-full text-xs font-bold"
-                style={{
-                  background: "var(--primary)",
-                  color: "var(--primary-foreground)",
-                }}
-              >
-                Rs. {item.price}
-                {item.unit && (
-                  <span className="font-normal opacity-80"> /{item.unit}</span>
-                )}
-              </span>
+              <div className="p-4 md:p-5 flex items-baseline justify-between gap-2">
+                <div>
+                  <p
+                    className="text-base md:text-lg leading-tight"
+                    style={{ color: "var(--foreground)" }}
+                  >
+                    {item.name}
+                  </p>
+
+                  <p
+                    className="text-xs md:text-sm mt-0.5"
+                    style={{ color: "var(--muted-foreground)" }}
+                  >
+                    {item.category}
+                  </p>
+                </div>
+
+                <span
+                  className="shrink-0 text-sm md:text-base tabular-nums"
+                  style={{ color: "var(--secondary)" }}
+                >
+                  Rs. {item.price}
+                  {item.unit && (
+                    <span className="opacity-70"> /{item.unit}</span>
+                  )}
+                </span>
+              </div>
             </motion.div>
           ))}
         </div>
 
-        {/* See all CTA */}
-        <motion.div
-          className="mt-8 text-center"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeUp}
+        <Link
+          href="/menu"
+          className="mt-8 inline-block text-sm md:text-base underline underline-offset-4 sm:hidden"
+          style={{
+            color: "var(--muted-foreground)",
+            textDecorationColor: "var(--secondary)",
+          }}
         >
-          <Link href="/menu">
-            <button className="px-6 py-2.5 rounded-full border border-border bg-background text-foreground text-sm font-semibold transition-all hover:bg-muted hover:-translate-y-0.5">
-              See All Items →
-            </button>
-          </Link>
-        </motion.div>
+          See all items
+        </Link>
       </div>
     </section>
   );
 }
 
 // ─────────────────────────────────────────────
-// Category Showcase
+// Categories — numbered Swiss list.
 // ─────────────────────────────────────────────
-const ALL_CATEGORIES: MenuCategory[] = [
+const ORDERED_CATEGORIES: MenuCategory[] = [
   "Hot Beverages",
   "Cold Drinks",
   "Momo",
@@ -269,44 +471,65 @@ const ALL_CATEGORIES: MenuCategory[] = [
 
 function CategoriesSection({ counts }: { counts: Record<string, number> }) {
   return (
-    <section id="categories" className="w-full py-16 px-4">
-      <div className="max-w-5xl mx-auto">
-        <motion.div
-          className="text-center mb-10"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          variants={fadeUp}
+    <section
+      id="categories"
+      className="w-full border-b"
+      style={{ borderColor: "var(--border)" }}
+    >
+      <div className="max-w-6xl mx-auto px-6 md:px-10 py-14 md:py-20">
+        <h2
+          className="text-3xl md:text-4xl mb-10 md:mb-14"
+          style={{ color: "var(--foreground)" }}
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
-            🗂️ Browse by Category
-          </h2>
-          <p className="mt-2 text-muted-foreground text-sm md:text-base max-w-md mx-auto">
-            From hot sips to hearty plates — we have something for everyone.
-          </p>
-        </motion.div>
+          What we serve
+        </h2>
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-          {ALL_CATEGORIES.map((cat, i) => (
-            <motion.div
+        <div>
+          {ORDERED_CATEGORIES.map((cat, i) => (
+            <motion.a
               key={cat}
+              href="/menu"
               custom={i}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-40px" }}
-              variants={fadeUp}
-              whileHover={{ scale: 1.06 }}
-              className="flex flex-col items-center gap-2 p-3 rounded-2xl border border-border bg-card shadow-sm hover:shadow-md transition-all cursor-default"
+              variants={row}
+              className="group flex items-center gap-4 md:gap-8 py-4 md:py-5 border-t"
+              style={{ borderColor: "var(--border)" }}
             >
-              <span className="text-3xl">{CATEGORY_ICONS[cat]}</span>
-              <span className="text-[0.72rem] font-semibold text-foreground text-center leading-tight">
-                {cat}
+              <span
+                className="w-8 md:w-12 shrink-0 text-sm md:text-base tabular-nums"
+                style={{ color: "var(--muted-foreground)" }}
+              >
+                {pad(i + 1)}
               </span>
-              <span className="text-[0.65rem] text-muted-foreground">
+
+              <span
+                className="relative flex-1 inline-block w-fit text-xl md:text-3xl leading-none"
+                style={{ color: "var(--foreground)" }}
+              >
+                {cat}
+                <span
+                  aria-hidden
+                  className="absolute left-0 -bottom-1 h-[2px] w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                  style={{ background: "var(--secondary)" }}
+                />
+              </span>
+
+              <span
+                className="shrink-0 text-xs md:text-sm hidden sm:block"
+                style={{ color: "var(--muted-foreground)" }}
+              >
                 {counts[cat] ?? 0} items
               </span>
-            </motion.div>
+
+              {/*<ImageSlot
+                label=""
+                className="w-14 h-14 md:w-20 md:h-20 shrink-0"
+              />*/}
+            </motion.a>
           ))}
+          <div className="border-t" style={{ borderColor: "var(--border)" }} />
         </div>
       </div>
     </section>
@@ -314,90 +537,62 @@ function CategoriesSection({ counts }: { counts: Record<string, number> }) {
 }
 
 // ─────────────────────────────────────────────
-// Info Highlights Bar
-// ─────────────────────────────────────────────
-const HIGHLIGHTS = [
-  { icon: "🌿", label: "Fresh Ingredients" },
-  { icon: "🏡", label: "Homemade Recipes" },
-  { icon: "⚡", label: "Quick Service" },
-  { icon: "📍", label: "Swoyambhu, KTM" },
-];
-
-function HighlightsBar() {
-  return (
-    <section className="w-full py-8 px-4 border-y border-border bg-card/60">
-      <div className="max-w-4xl mx-auto flex flex-wrap justify-center gap-6 md:gap-12">
-        {HIGHLIGHTS.map((h, i) => (
-          <motion.div
-            key={h.label}
-            custom={i}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            className="flex items-center gap-3"
-          >
-            <span className="text-2xl">{h.icon}</span>
-            <span className="text-sm font-semibold text-foreground">
-              {h.label}
-            </span>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Final CTA Section
+// Final CTA — the one place the page spends
+// its boldness: full-width inverted color band.
 // ─────────────────────────────────────────────
 function CTASection({ totalItems }: { totalItems: number }) {
   return (
-    <section className="w-full py-20 px-4">
+    <section className="w-full" style={{ background: "var(--foreground)" }}>
       <motion.div
-        className="max-w-2xl mx-auto text-center space-y-6 rounded-3xl border border-border bg-card shadow-lg p-10"
+        className="max-w-6xl mx-auto px-6 md:px-10 py-20 md:py-28 flex flex-col md:flex-row md:items-end md:justify-between gap-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-60px" }}
-        variants={fadeUp}
+        variants={reveal}
       >
-        <span className="text-5xl">🍋</span>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-foreground">
-          {totalItems}+ Items on the Menu
+        <h2
+          className="text-4xl md:text-6xl leading-[0.95] max-w-lg"
+          style={{ color: "var(--background)" }}
+        >
+          {totalItems}+ items on the menu.
         </h2>
-        <p className="text-muted-foreground text-sm md:text-base">
-          Momo, chowmein, fried rice, freshly brewed teas &amp; much more —
-          ready for you at Lemonade Cafe.
-        </p>
-        <Link href="/menu">
-          <button
-            className="mt-2 px-8 py-3 rounded-full font-bold text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
-            style={{
-              background: "var(--primary)",
-              color: "var(--primary-foreground)",
-            }}
+        <div className="flex flex-col gap-4 md:items-end">
+          <p
+            className="text-sm md:text-base max-w-xs md:text-right"
+            style={{ color: "var(--background)", opacity: 0.75 }}
           >
-            View Full Menu →
-          </button>
-        </Link>
+            Momo, chowmein, fried rice, freshly brewed teas &amp; much more —
+            ready for you at Lemonade Cafe.
+          </p>
+          <Link href="/menu">
+            <button
+              className="px-6 py-3 text-sm md:text-base transition-opacity hover:opacity-85"
+              style={{
+                background: "var(--primary)",
+                color: "var(--primary-foreground)",
+              }}
+            >
+              View full menu
+            </button>
+          </Link>
+        </div>
       </motion.div>
     </section>
   );
 }
 
 // ─────────────────────────────────────────────
-// Root Landing Page export
+// Root Landing Page
 // ─────────────────────────────────────────────
 export default function LandingPage() {
   const allItems = MenuData();
   const availableItems = allItems.filter((i) => i.available);
 
-  // Featured items
+  const FEATURED_IDS = [1, 6, 12, 17, 22, 32];
   const featured = FEATURED_IDS.map((id) =>
     availableItems.find((i) => i.id === id),
   ).filter(Boolean) as MenuItem[];
 
-  // Category counts
   const counts = availableItems.reduce(
     (acc, item) => {
       acc[item.category] = (acc[item.category] ?? 0) + 1;
@@ -407,7 +602,8 @@ export default function LandingPage() {
   );
 
   return (
-    <div className="min-h-screen bg-background">
+    <div style={{ background: "var(--background)" }}>
+      {/*<Masthead />*/}
       <HeroSection />
       <HighlightsBar />
       <FeaturedSection items={featured} />

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { MapPin, Clock, Citrus, Coffee } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -55,9 +56,12 @@ export const Footer = () => {
               Find Us
             </h3>
             <ul className="flex flex-col gap-2 text-sm text-muted-foreground">
-              <li>📍 Swoyambhu, Kathmandu, Nepal</li>
-              <li>
-                🕐 Open Daily&nbsp;
+              <li className="flex gap-2">
+                <MapPin size={16} /> Swoyambhu, Kathmandu, Nepal
+              </li>
+              <li className="flex gap-2">
+                <Clock size={16} />
+                Open Daily&nbsp;
                 <span className="text-foreground font-medium">7 AM – 8 PM</span>
               </li>
               <li>
@@ -78,7 +82,10 @@ export const Footer = () => {
         {/* Divider */}
         <div className="mt-8 border-t pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
           <p>© {currentYear} Lemonade Cafe. All rights reserved.</p>
-          <p>Made with ☕ & 🍋 in Kathmandu</p>
+          <p className="flex">
+            Made with &nbsp; <Coffee size={12} /> &nbsp; & &nbsp;{" "}
+            <Citrus size={12} /> &nbsp; in Kathmandu
+          </p>
 
           <p>
             Like this website?{" "}

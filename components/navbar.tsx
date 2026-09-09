@@ -6,11 +6,11 @@ export const Navbar = () => {
     <nav className="border-b bg-background">
       <div className="mx-auto flex h-17 max-w-7xl items-center justify-between px-2">
         <div className="flex items-center gap-3">
-          {/*<img src="/logo-c.png" alt="Lemonade Cafe" className="h-13" />*/}
+
           <Link href="/">
             {" "}
             <Image
-              src="/logo-c.png"
+              src="/cafelogo.png"
               alt="Lemonade Cafe"
               width={1000}
               height={555}

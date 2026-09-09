@@ -1,6 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
+import type { LucideIcon } from "lucide-react";
+import {
+  Coffee,
+  CupSoda,
+  Soup,
+  Utensils,
+  Beef,
+  Drumstick,
+  Sandwich,
+  Wheat,
+  Egg,
+} from "lucide-react";
+
 import MenuData, { MenuCategory, MenuItem } from "@/data/menudata";
 
 // ── Category display order
@@ -20,34 +34,22 @@ const CATEGORY_ORDER: MenuCategory[] = [
 ];
 
 // ── Category icons
-const CATEGORY_ICONS: Record<MenuCategory, string> = {
-  "Hot Beverages": "☕",
-  "Cold Drinks": "🥤",
-  Momo: "🥟",
-  Chowmein: "🍜",
-  "Fried Rice": "🍚",
-  Chicken: "🍗",
-  Buff: "🥩",
-  Sausages: "🌭",
-  Thukpa: "🍲",
-  "Roti & Sides": "🫓",
-  Egg: "🥚",
-  Chowchow: "🍜",
+const CATEGORY_ICONS: Record<MenuCategory, LucideIcon> = {
+  "Hot Beverages": Coffee,
+  "Cold Drinks": CupSoda,
+  Momo: Soup,
+  Chowmein: Utensils,
+  "Fried Rice": Utensils,
+  Chicken: Drumstick,
+  Buff: Beef,
+  Sausages: Sandwich,
+  Thukpa: Soup,
+  "Roti & Sides": Wheat,
+  Egg: Egg,
+  Chowchow: Utensils,
 };
 
 // ── Group available items by category
-// function groupByCategory(items: MenuItem[]): Record<string, MenuItem[]> {
-//   return items
-//     .filter((item) => item.available)
-//     .reduce(
-//       (acc, item) => {
-//         if (!acc[item.category]) acc[item.category] = [];
-//         acc[item.category].push(item);
-//         return acc;
-//       },
-//       {} as Record<string, MenuItem[]>,
-//     );
-// }
 function groupByCategory(items: MenuItem[]): Record<string, MenuItem[]> {
   const grouped = items
     .filter((item) => item.available)
@@ -60,13 +62,14 @@ function groupByCategory(items: MenuItem[]): Record<string, MenuItem[]> {
       {} as Record<string, MenuItem[]>,
     );
 
-  // 🔽 Sort each category by price (ascending)
+  // Sort each category by price (ascending)
   Object.keys(grouped).forEach((category) => {
     grouped[category].sort((a, b) => a.price - b.price);
   });
 
   return grouped;
 }
+
 // ── Single menu item row
 function MenuItemRow({ item, isLast }: { item: MenuItem; isLast: boolean }) {
   return (
@@ -94,14 +97,15 @@ function MenuItemRow({ item, isLast }: { item: MenuItem; isLast: boolean }) {
 }
 
 // ── Animation variants
-import type { Variants } from "framer-motion";
-
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: "easeOut" as const },
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
   },
 };
 
@@ -115,6 +119,8 @@ function CategoryCard({
   items: MenuItem[];
   index: number;
 }) {
+  const Icon = CATEGORY_ICONS[category];
+
   return (
     <motion.div
       className="bg-card text-card-foreground border border-border rounded-(--radius) px-6 py-5 break-inside-avoid mb-5"
@@ -126,10 +132,12 @@ function CategoryCard({
     >
       {/* Category header */}
       <div className="flex items-center gap-2 mb-3 pb-3 border-b-2 border-border">
-        <span className="text-xl">{CATEGORY_ICONS[category]}</span>
+        <Icon className="h-5 w-5 text-muted-foreground" strokeWidth={2} />
+
         <h2 className="text-[1.05rem] font-bold text-foreground m-0">
           {category}
         </h2>
+
         <span className="ml-auto text-xs text-muted-foreground">
           {items.length} items
         </span>
@@ -165,6 +173,7 @@ export default function MenuPage() {
         <h1 className="text-3xl font-extrabold text-foreground">
           Lemonade Cafe
         </h1>
+
         <p className="text-sm text-muted-foreground mt-1">
           Swoyambhu, Kathmandu
         </p>
