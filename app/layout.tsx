@@ -67,9 +67,9 @@ export const metadata: Metadata = {
       "A cozy cafe in Swoyambhu, Kathmandu. Famous for fresh Lemon Tea, Hot Lemon, cold lemonade, momos, thukpa and more. Come visit us!",
     images: [
       {
-        url: "/og-image.jpg", // 🔁 add a 1200x630 image to your /public folder
-        width: 1024,
-        height: 530,
+        url: "/og-image.jpg", //
+        width: 1200,
+        height: 627,
         alt: "Lemonade Cafe — Swoyambhu, Kathmandu",
       },
     ],
